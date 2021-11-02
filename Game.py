@@ -7,7 +7,7 @@ print(number)
 print("Guess a number between 0 and 99:")
 guess = input("Write your guess:")
 
-while guess != number:  
+while guess != str(number):  
     if guess > str(number): 
         print("The number is a bit lower than your guess, try again!")
         print("Guess a number between 0 and 99:")
