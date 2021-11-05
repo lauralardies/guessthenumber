@@ -8,7 +8,7 @@ El diagrama de flujo que tenemos en nuestro código es el siguiente:
 
 ![Figma](/lauralardies/guessthenumber/guessthenumber.jpg)
 
-``import random
+```import random
 
 number = random.randint(0,99)
 
@@ -32,4 +32,4 @@ while guess != number:
 sTries = " try."
 if tries > 1:
     sTries = " tries."
-print("Congratulations! You guessed the number correctly in " + str(tries) + sTries)``
+print("Congratulations! You guessed the number correctly in " + str(tries) + sTries)```
