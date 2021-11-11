@@ -1,22 +1,71 @@
 import random
 
-number = random.randint(0,99)
+max = "100"
+updated_min = 0
+updated_max = max 
 
-print("Guess a number between 0 and 99:")
+
+def showMenu ():
+    print("Select your difficulty level:")
+    print("  1. Easy")
+    print("  2. Intermediate")
+    print("  3. Advanced")
+    print("  4. Expert")
+
+    level = int(input())
+    return level
+
+def updateMin (guess, current):
+    if (current < guess):
+        return guess
+    return current
+
+def updateMax (guess, current):
+    if (current > guess):
+        return guess
+    return current
+
+level = showMenu()
+
+if level == 1:
+    number = random.randint(0,100)
+    max = 100
+elif level == 2:
+    number = random.randint(0,200)
+    max = 200
+elif level == 3: 
+    number = random.randint(0,300)
+    max = 300
+elif level == 4:
+    number = random.randint(0,400)
+    max = 400
+else:
+    print("Invalid level. Choosing easy level")
+    number = random.randint(0,100)
+    max = 100
+
+updated_max = max
+
+print("Guess a number between 0 and " + str(max) + ":")
 guess = int(input("Write your guess: "))
 tries = 1
 
 while guess != number:
-    if guess >= 0 and guess <= 99:
+    if guess >= 0 and guess <= max:
         if guess > number: 
             print("The number is a bit smaller than your guess, try again!")
+            updated_max = updateMax(guess, updated_max)
         elif guess < number:
             print("The number is a bit bigger than your guess, try again!")
-        print("Guess a number between 0 and 99:")
+            updated_min = updateMin(guess, updated_min)
+        hint = input("Do you require help? (Y/[N]): ")
+        if (str.upper(hint) == "Y"):
+            print ("The number is between " + str(updated_min) + " and " + str(updated_max))
+        print("Guess a number between 0 and " + str(max) + ":")
         guess = int(input("Write your guess: "))
         tries = tries + 1
     else:
-        print("Guess a number between 0 and 99:")
+        print("Guess a number between 0 and " + str(max) + ":")
         guess = int(input("Write your guess: "))
 
 sTries = " try."
