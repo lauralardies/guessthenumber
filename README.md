@@ -7,10 +7,10 @@ Hemos resuelto un programa para terminal que va a escoger un número aleatoriame
 El diagrama de flujo que tenemos en nuestro código es el siguiente:
 
 <br>
-<img height="800" src="https://github.com/lauralardies/guessthenumber/blob/main/guessthenumber.jpg" />
+<img height="700" src="https://github.com/lauralardies/guessthenumber/blob/main/guessthenumber.jpg" />
 <br>
 
-```import random
+``` import random
 
 LEVEL = 0
 NUMBER = 1
