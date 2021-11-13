@@ -3,7 +3,8 @@
 Mi dirección de GitHub para este repositorio es la siguiente: [GitHub](https://github.com/lauralardies/guessthenumber)
 https://github.com/lauralardies/guessthenumber
 
-Hemos resuelto un programa para terminal que va a escoger un número aleatoriamente, entre 0 y 99, y a continuación, le va a pedir al usuario que adivine este número.
+Hemos resuelto un programa para terminal que va a escoger un número aleatoriamente, dependiendo del nivel escogido, el rango de los números a adivinar será mayor o menor. A continuación, le va a pedir al usuario que adivine este número. El usuario contará con un número determinado de intentos y además podrá recibir ayuda del sistema para adivinar dicho número. También puedes hacer que la IA juegue a adivinar el número y además, al salir del juego, se mostrará una tabla con los puntuajes grabados.
+
 El diagrama de flujo que tenemos en nuestro código es el siguiente:
 
 <br>
