@@ -1,34 +1,29 @@
 import random
 
-max = "100"
-updated_min = 0
-updated_max = max
+LEVEL = 0
+NUMBER = 1
+MAX = 2
+MAX_TRIES = 3
+MIN = 4
 
-def showMenu():
-    print("Select your difficulty level:")
-    print("  1. Easy")
-    print("  2. Intermediate")
-    print("  3. Advanced")
-    print("  4. Expert")
-
-    level = int(input())
+def showMenu ():
+    print ("1. Easy")
+    print ("2. Intermediate")
+    print ("3. Advanced")
+    print ("4. Expert")
+    while True:
+        level = input("Select your difficulty level: ")
+        try:
+            level = int(level)
+        except:
+            pass
+        else:
+            if 1 <= level <= 4:
+                break
     return level
 
-def updateMin(guess, current):
-    if current < guess:
-        return guess
-    return current
-
-def updateMax(guess, current):
-    if current > guess:
-        return guess
-    return current
-
-score = []
-
-while True:
+def selectLevel ():
     level = showMenu()
-
     if level == 1:
         number = random.randint(0, 100)
         max = 100
@@ -46,46 +41,69 @@ while True:
         max = 400
         max_tries = 50
     else:
-        print("Invalid level. Choosing easy level")
+        print("Invalid level. Choosing easy level...")
         number = random.randint(0, 100)
         max = 100
         max_tries = 20
-    
-    updated_max = max
-    print("Guess a number between 0 and " + str(max) + ":")
-    guess = int(input("Write your guess: "))
-    tries = 1
+    min = 0
+    return [level, number, max, max_tries, min]
 
-    while guess != number:
-        if tries == max_tries:
-            print("You have ran out of tries. The number was " + str(number))
-            break
-        else:
-            print("You have " + str(max_tries - tries) + " tries left")
-        
-        if guess >= 0 and guess <= max:
-            if guess > number:
-                print("The number is a bit smaller than your guess, try again!")
-                updated_max = updateMax(guess, updated_max)
-            elif guess < number:
-                print("The number is a bit bigger than your guess, try again!")
-                updated_min = updateMin(guess, updated_min)
-            
-            hint = input("Do you require help? (Y/[N]): ")
-            if str.upper(hint) == "Y":
-                print("The number is between " + str(updated_min) + " and " + str(updated_max))
-            print("Guess a number between 0 and " + str(max) + ":")
-            guess = int(input("Write your guess: "))
-            tries = tries + 1
-        else:
-            print("Guess a number between 0 and " + str(max) + ":")
-            guess = int(input("Write your guess: "))
+def chooseGuess ():
+    while True:
+        guess = input("Write your guess: ")
+        try:
+            guess = int(guess)
+        except:
+            pass 
+        else: 
+            if 0 <= guess <= game_data[MAX]:
+                break
+    return guess
+
+def updateMin (guess, current):
+    if current < guess:
+        return guess
+    return current
+
+def updateMax (guess, current):
+    if current > guess:
+        return guess
+    return current
+
+def numberTries (value):
+    if value > 1:
+        return " tries"
+    return " try"
     
-    if guess == number:
-        sTries = " try."
-        if tries > 1:
-            sTries = " tries."
-        print("Congratulations! You guessed the number correctly in " + str(tries) + sTries)
-        name = input("Introduce your name: ")
-        score.append([name, level, tries])
-    
+def help ():
+    hint = input("Do you require help? (Y/[N]): ")
+    if str.upper(hint) == "Y":
+        print("The number you are looking for is between " + str(updated_min) + " and " + str(updated_max))
+
+game_data = selectLevel()
+tries = 0
+updated_min = 0
+updated_max = game_data[MAX]
+
+while True:
+    print ("Guess a number bewteen 0 and " + str(game_data[MAX]) + ":")
+    guess = chooseGuess()
+    tries += 1
+    score = []
+    if tries > game_data[MAX_TRIES]:
+        print("You have ran out of tries, the number was " + str(game_data[NUMBER]) + ".")
+    else:
+        print("You have " + str(game_data[MAX_TRIES] - tries) + numberTries(game_data[MAX_TRIES] - tries) + " left.")
+    if guess < game_data[NUMBER]:
+        print ("The number is a bit bigger than your guess, try again!")
+        updated_min = updateMin(guess, updated_min)
+        help()
+    elif guess > game_data[NUMBER]:
+        print("The number is a bit smaller than your guess, try again!")
+        updated_max = updateMax(guess, updated_max)
+        help()
+    else:
+        print("Congratulations! You guessed the number correctly in " + str(tries) + numberTries(tries) + ".")
+        name = input("Please, introduce your name: ")
+        score.append([name, game_data[LEVEL], tries])
+        break
